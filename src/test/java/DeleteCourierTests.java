@@ -1,3 +1,4 @@
+import io.qameta.allure.Description;
 import model.CourierModel;
 import org.junit.Test;
 
@@ -8,6 +9,7 @@ import static steps.CourierSteps.deleteCourier;
 
 public class DeleteCourierTests extends BaseCourierTest{
     @Test
+    @Description("Проверка, что успешный запрос на удаление курьера возвращает ok: true")
     public void deleteCourierSuccess() {
         createCourier(courier);
         String courierId = getCourierId(courier);

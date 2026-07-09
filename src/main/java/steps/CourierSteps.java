@@ -1,5 +1,6 @@
 package steps;
 
+import io.qameta.allure.Step;
 import io.restassured.http.ContentType;
 import io.restassured.response.Response;
 import model.CourierModel;
@@ -9,6 +10,7 @@ import static io.restassured.RestAssured.given;
 
 public class CourierSteps {
 
+    @Step("создание курьера")
     public static Response createCourier(CourierModel courier) {
         return given()
                 .contentType(ContentType.JSON)
@@ -19,6 +21,7 @@ public class CourierSteps {
                 .extract().response();
     }
 
+    @Step("авторизация курьера")
     public static Response loginCourier(CourierModel courier) {
         return given()
                 .contentType(ContentType.JSON)
@@ -29,6 +32,7 @@ public class CourierSteps {
                 .extract().response();
     }
 
+    @Step("удаление курьера")
     public static Response deleteCourier(CourierModel courier) {
         return given()
                 .contentType(ContentType.JSON)

@@ -1,3 +1,4 @@
+import io.qameta.allure.Description;
 import io.restassured.http.ContentType;
 import model.OrderModel;
 import org.junit.Test;
@@ -9,7 +10,7 @@ import static java.net.HttpURLConnection.HTTP_CREATED;
 import static org.hamcrest.Matchers.isA;
 
 @RunWith(Parameterized.class)
-public class CreateOrderTests  extends BaseApiTest{
+public class CreateOrderTests  extends BaseApiTest {
     private final String firstName;
     private final String lastName;
     private final String address;
@@ -44,6 +45,7 @@ public class CreateOrderTests  extends BaseApiTest{
     }
 
     @Test
+    @Description("Проверка, что при создании заказа можно выбрать любой из цветов, оба цвета или ни один из цветов")
     public void createOrderTests() {
         OrderModel order  = new OrderModel(firstName, lastName, address, metroStation, phone, rentTime, deliveryDate, comment, color);
         given()
