@@ -23,7 +23,8 @@ public class CreateCourierTests extends BaseCourierTest {
         createCourier(courier);
         createCourier(courier)
                 .then()
-                .statusCode(HTTP_CONFLICT);
+                .statusCode(HTTP_CONFLICT)
+                .body("message", equalTo("Этот логин уже используется. Попробуйте другой."));
     }
 
     @Test
@@ -32,7 +33,8 @@ public class CreateCourierTests extends BaseCourierTest {
         CourierModel courierWithoutLogin = new CourierModel(null, courier.getPassword(), courier.getFirstName());
         createCourier(courierWithoutLogin)
                 .then()
-                .statusCode(HTTP_BAD_REQUEST);
+                .statusCode(HTTP_BAD_REQUEST)
+                .body("message", equalTo("Недостаточно данных для создания учетной записи"));
     }
 
     @Test
@@ -41,7 +43,8 @@ public class CreateCourierTests extends BaseCourierTest {
         CourierModel courierWithoutPassword = new CourierModel(courier.getLogin(), null, courier.getFirstName());
         createCourier(courierWithoutPassword)
                 .then()
-                .statusCode(HTTP_BAD_REQUEST);
+                .statusCode(HTTP_BAD_REQUEST)
+                .body("message", equalTo("Недостаточно данных для создания учетной записи"));
     }
 
 }

@@ -3,17 +3,16 @@ import org.junit.Test;
 
 import java.util.List;
 
-import static io.restassured.RestAssured.given;
 import static java.net.HttpURLConnection.HTTP_OK;
 import static org.hamcrest.CoreMatchers.instanceOf;
 import static org.hamcrest.Matchers.hasKey;
+import static steps.OrderSteps.getOrdersList;
 
 public class GetOrdersTests extends BaseApiTest{
     @Test
     @Description("Проверка, что запрос на получение списка заказов возвращает список заказов")
     public void getOrdersReturnOrdersList() {
-        given()
-                .get("/api/v1/orders")
+        getOrdersList()
                 .then()
                 .statusCode(HTTP_OK)
                 .body("$", hasKey("orders"))

@@ -3,6 +3,7 @@ import model.CourierModel;
 import org.junit.Test;
 
 import static java.net.HttpURLConnection.*;
+import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.CoreMatchers.notNullValue;
 import static steps.CourierSteps.createCourier;
 import static steps.CourierSteps.loginCourier;
@@ -27,7 +28,8 @@ public class LoginCourierTests extends BaseCourierTest {
         CourierModel loginCourierDataWrongLogin = new CourierModel("wrong login", courier.getPassword());
         loginCourier(loginCourierDataWrongLogin)
                 .then()
-                .statusCode(HTTP_NOT_FOUND);
+                .statusCode(HTTP_NOT_FOUND)
+                .body("message", equalTo("Учетная запись не найдена"));
     }
 
     @Test
@@ -37,7 +39,8 @@ public class LoginCourierTests extends BaseCourierTest {
         CourierModel loginCourierDataWrongLogin = new CourierModel(courier.getLogin(), "wrong password");
         loginCourier(loginCourierDataWrongLogin)
                 .then()
-                .statusCode(HTTP_NOT_FOUND);
+                .statusCode(HTTP_NOT_FOUND)
+                .body("message", equalTo("Учетная запись не найдена"));
     }
 
     @Test
@@ -47,7 +50,8 @@ public class LoginCourierTests extends BaseCourierTest {
         CourierModel loginCourierDataWithoutLogin = new CourierModel(null, courier.getPassword());
         loginCourier(loginCourierDataWithoutLogin)
                 .then()
-                .statusCode(HTTP_BAD_REQUEST);
+                .statusCode(HTTP_BAD_REQUEST)
+                .body("message", equalTo("Недостаточно данных для входа"));
     }
 
 }
